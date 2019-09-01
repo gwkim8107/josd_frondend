@@ -1,0 +1,13 @@
+@media all and (min-width: 480px) {
+    .Login {
+      padding: 20px 20px;
+    }
+  
+    .Login form {
+      margin: 2 10 10 2;
+      max-width: 576px;
+    }
+    .fa-google-plus {
+      color: red;
+    }
+  }
