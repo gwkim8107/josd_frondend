@@ -5,9 +5,11 @@ import logo from '../logo.png'
 import Image from 'react-bootstrap/Image'
 import '../css/Login.css'
 import GoogleLogin from 'react-google-login'
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import { IoLogoFacebook } from "react-icons/io";
 
 export default class Login extends Component {
     constructor(props){
@@ -42,42 +44,50 @@ export default class Login extends Component {
         console.error(err)
     }
 
+    // Facebook Login
+    responseFacebook = (response) => {
+        console.log(response);
+    }
+
     render() {
         return(
-            <div className="Login">
-                <div className='container'>
-                    <Image src={logo} alt="logo" fluid={false}/>
-                </div>
+            <div className="">
+                <Container>
+                    <Image src={logo} alt="logo" className='' rounded/>
+                </Container>
                 
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="email" className=''>
+                    <Form.Group controlId="email" className='Login form'>
                         <Form.Label>Email</Form.Label>
                         <Form.Control autoFocus type="email" value={this.state.email} onChange={this.handleChange} />
                     </Form.Group>
-                    <Form.Group controlId="password">
+                    <Form.Group controlId="password" className='Login form'>
                         <Form.Label>Password</Form.Label>
                         <Form.Control value={this.state.password} onChange={this.handleChange} type="password"/>
                     </Form.Group>
-                    <div className='row'>
-                        <div className='col-7 text-sm-left'>
-                            <Form.Check type="checkbox" label="Remember Password" className='text-sm-left'/>
-                        </div>
-                        <div className='col-5'>
-                            <a href='./' fontsize='12' className='text-sm-left'>Forgot your password?</a>
-                        </div>
-                    </div>
-                    <Button size='lg' block disabled={!this.validateForm()} type="submit">Login</Button>
+                    <Container className='Login form'>
+                        <Row>
+                            <Col xs={6}>
+                                <Form.Check type="checkbox" label="Remember Password" className='Login1 font12'/>
+                            </Col>
+                            <Col xs={6}>
+                                <div className='Login2'>
+                                    <a href='./' className='font12'>Forgot your password?</a>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Container>
+                    <Button size='lg' className='Login form' block disabled={!this.validateForm()} type="submit">Login</Button>
                 </Form>
-                <div className='container'>
+                <div className='container Login form'>
                     <p>Don't have an account? <a href='./' fontsize='12' className='text-sm-left'>Sign Up</a></p>
                 </div>
 
                 <Container>
                     <Row>
-                        <Col xs='6'>
+                        <Col xs={6}>
                             <GoogleLogin
                                     clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-                                    className=''
                                     render={renderProps => (
                                         <i class="fab fa-google-plus fa-3x" onClick={renderProps.onClick}></i>
                                     )}
@@ -87,10 +97,14 @@ export default class Login extends Component {
                                     cookiePolicy={'single_host_origin'}
                             />
                         </Col>
-                        <Col xs='6'>
-                            {/* Facebook login */}
-                            Facebook
-
+                        <Col xs={6}>
+                            <FacebookLogin
+                                appId="1088597931155576"
+                                callback={this.responseFacebook}
+                                render={renderProps => (
+                                    <i class="fab fa-facebook fa-3x" onClick={renderProps.onClick}></i>
+                                )}
+                            />
                         </Col>
                     </Row>
                 </Container>
