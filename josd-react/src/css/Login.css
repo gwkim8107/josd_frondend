@@ -1,38 +1,48 @@
-@media all and (min-width: 375px) {
+@media all and (min-width: 360px) {
     .Login {
       padding: 1px 1px 1px 1px;
     }
 
     .Login1 {
-      padding: 1px 1px 2px 10px;
-      text-align: 'center';
+      padding: 2px 1px 2px 10px;
     }
 
     .Login2 {
       padding: 1px 10x 2px 10px;
-      margin-bottom: auto;
-      text-align: 'top';
+      margin: 2px auto;
     }
   
-    .Login form {
-      margin: 0 0 0 0 !important;
-      max-width: 340px;
-      max-height: 780px;
+    .Loginform {
+      width: 90%;
+      margin: 2px auto;
+      max-height: 640px;
     }
     .fa-google-plus {
       color: red;
-      text-align: 'center';
       padding: 1px 1px 1px 50px;
     }
 
     .fa-facebook{
       color: blue;
-      text-align: 'center';
       padding: 1px 1px 1px 50px;
     }
     .font12{
+      width: 90%;
       font-size: 12px;
-      text-align: top;
+      margin: 5px auto;
     }
 
+    .logobox{
+      width: 340px;
+      max-width: 375px;
+      height: 250px;
+    }
+    .form-control{
+      margin: 5 auto;
+    }
+
+    .btn1{
+      width: 90% !important;
+      margin: 2px auto;
+    }
   }

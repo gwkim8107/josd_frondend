@@ -9,7 +9,6 @@ import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import { IoLogoFacebook } from "react-icons/io";
 
 export default class Login extends Component {
     constructor(props){
@@ -53,19 +52,19 @@ export default class Login extends Component {
         return(
             <div className="">
                 <Container>
-                    <Image src={logo} alt="logo" className='' rounded/>
+                    <Image src={logo} alt="logo" className='logobox' rounded/>
                 </Container>
                 
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="email" className='Login form'>
+                    <Form.Group controlId="email" className='Loginform'>
                         <Form.Label>Email</Form.Label>
                         <Form.Control autoFocus type="email" value={this.state.email} onChange={this.handleChange} />
                     </Form.Group>
-                    <Form.Group controlId="password" className='Login form'>
+                    <Form.Group controlId="password" className='Loginform'>
                         <Form.Label>Password</Form.Label>
                         <Form.Control value={this.state.password} onChange={this.handleChange} type="password"/>
                     </Form.Group>
-                    <Container className='Login form'>
+                    <Container className='Loginform'>
                         <Row>
                             <Col xs={6}>
                                 <Form.Check type="checkbox" label="Remember Password" className='Login1 font12'/>
@@ -77,10 +76,10 @@ export default class Login extends Component {
                             </Col>
                         </Row>
                     </Container>
-                    <Button size='lg' className='Login form' block disabled={!this.validateForm()} type="submit">Login</Button>
+                    <Button size='lg' className='btn1 Login'  block disabled={!this.validateForm()} type="submit">Login</Button>
                 </Form>
-                <div className='container Login form'>
-                    <p>Don't have an account? <a href='./' fontsize='12' className='text-sm-left'>Sign Up</a></p>
+                <div className='container'>
+                    <p>Don't have an account? <a href='./' className='font12'>Sign Up</a></p>
                 </div>
 
                 <Container>
