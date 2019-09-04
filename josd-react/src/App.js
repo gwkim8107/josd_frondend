@@ -6,7 +6,7 @@ import Login from './components/Login';
 import Register from './components/Register'
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css'
-
+import ErrorNotFound from './components/ErrorNotFound'
 
 function App() {
   return (
@@ -16,6 +16,8 @@ function App() {
           <Switch>
             <Route exact path="/" component={Login}></Route>
             <Route path="/reg" component={Register}></Route>
+            {/* add 404 page */}
+            <Route path="*" component={ErrorNotFound}></Route>
           </Switch>
         </Router>
       </React.Fragment>
