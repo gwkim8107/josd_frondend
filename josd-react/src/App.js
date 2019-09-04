@@ -15,7 +15,7 @@ function App() {
           <Navbar></Navbar>
           <Switch>
             <Route exact path="/" component={Login}></Route>
-            <Route exact path="/reg" component={Register}></Route>
+            <Route path="/reg" component={Register}></Route>
           </Switch>
         </Router>
       </React.Fragment>
