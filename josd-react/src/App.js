@@ -3,7 +3,9 @@ import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/Navibar';
 import Login from './components/Login';
+import Register from './components/Register'
 import 'bootstrap/dist/css/bootstrap.css'
+import './App.css'
 
 
 function App() {
@@ -11,7 +13,8 @@ function App() {
       <React.Fragment>
         <Router>
           <Navbar></Navbar>
-          <Route path="/" component={Login}></Route>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/register" component={Register}></Route>
         </Router>
       </React.Fragment>
     

@@ -79,7 +79,7 @@ export default class Login extends Component {
                     <Button size='lg' className='btn1 Login'  block disabled={!this.validateForm()} type="submit">Login</Button>
                 </Form>
                 <div className='container'>
-                    <p>Don't have an account? <a href='./' className='font12'>Sign Up</a></p>
+                    <p className='font12'>Don't have an account? <a href='./register' className='font12'>Sign Up</a></p>
                 </div>
 
                 <Container>
