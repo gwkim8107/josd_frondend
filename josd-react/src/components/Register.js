@@ -75,7 +75,6 @@ export default class Register extends Component {
                         <Form.Label>Verify Password</Form.Label>
                         <Form.Control value={this.state.password} onChange={this.handleChange} type="password" placeholder='verify password'/>
                     </Form.Group>
-                    
                     <Button size='lg' className='btn1 Login'  block disabled={!this.validateForm()} type="submit">Register</Button>
                 </Form>
             </div>
