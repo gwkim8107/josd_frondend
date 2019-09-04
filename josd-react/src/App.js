@@ -11,11 +11,13 @@ import './App.css'
 function App() {
   return (
       <React.Fragment>
-        <Switch>
+        <Router>
           <Navbar></Navbar>
-          <Route exact path="/" component={Login}></Route>
-          <Route exact path="/reg" component={Register}></Route>
-        </Switch>
+          <Switch>
+            <Route exact path="/" component={Login}></Route>
+            <Route exact path="/reg" component={Register}></Route>
+          </Switch>
+        </Router>
       </React.Fragment>
     
   );
