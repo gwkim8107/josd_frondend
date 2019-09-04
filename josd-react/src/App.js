@@ -13,8 +13,8 @@ function App() {
       <React.Fragment>
         <Router>
           <Navbar></Navbar>
-          <Route path="/login" component={Login}></Route>
-          <Route path="/register" component={Register}></Route>
+          <Route path="/checkin" component={Login}></Route>
+          <Route path="/reg" component={Register}></Route>
         </Router>
       </React.Fragment>
     
