@@ -71,7 +71,7 @@ export default class Login extends Component {
                             </Col>
                             <Col xs={6}>
                                 <div className='Login2'>
-                                    <a href='./' className='font12'>Forgot your password?</a>
+                                    <a href='./resetpw' className='font12'>Forgot your password?</a>
                                 </div>
                             </Col>
                         </Row>
