@@ -4,6 +4,7 @@ import {HelpBlock} from "react-bootstrap";
 import Form from 'react-bootstrap/Form'
 //import LoaderButton from "../components/LoaderButton";
 import "../css/ResetPassword.css";
+import Button from 'react-bootstrap/Button'
 
 export default class ResetPassword extends Component {
     
@@ -83,15 +84,14 @@ export default class ResetPassword extends Component {
                 onChange={this.handleChange}
                 />
             </Form.Group>
-            {/* <LoaderButton
+            <Button 
                 block
                 type="submit"
-                bsSize="large"
-                loadingText="Sending…"
-                text="Send Confirmation"
+                size="lg"
                 isLoading={this.state.isSendingCode}
                 disabled={!this.validateCodeForm()}
-            /> */}
+            >Send Confirmation
+            </Button>
             </form>
         );
     }
@@ -107,10 +107,10 @@ export default class ResetPassword extends Component {
             value={this.state.code}
             onChange={this.handleChange}
             />
-            {/* <HelpBlock>
-            Please check your email ({this.state.email}) for the confirmation
-            code.
-            </HelpBlock> */}
+            <p>
+                Please check your email ({this.state.email}) for the confirmation
+                code.
+            </p>
         </Form.Group>
         <hr />
         <Form.Group bsSize="large" controlId="password">
@@ -129,15 +129,13 @@ export default class ResetPassword extends Component {
             value={this.state.confirmPassword}
             />
         </Form.Group>
-        {/* <LoaderButton
+        <Button
             block
             type="submit"
-            bsSize="large"
-            text="Confirm"
+            size="lg"
             loadingText="Confirm…"
             isLoading={this.state.isConfirming}
-            disabled={!this.validateResetForm()}
-        /> */}
+            disabled={!this.validateResetForm()}>Confirm</Button>
         </form>
     );
     }
@@ -149,7 +147,7 @@ export default class ResetPassword extends Component {
         <p>Your password has been reset.</p>
         <p>
             <Link to="/">
-            Click here to login with your new credentials.
+                Click here to login with your new credentials.
             </Link>
         </p>
         </div>
