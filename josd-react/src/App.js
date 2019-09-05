@@ -17,7 +17,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Login}></Route>
             <Route path="/reg" component={Register}></Route>
-            <Route path="/resetpw" component={ResetPassword}></Route>   
+            <Route path="/resetpw" component={ResetPassword}></Route>
             {/* add 404 page */}
             <Route path="*" component={ErrorNotFound}></Route>
           </Switch>
