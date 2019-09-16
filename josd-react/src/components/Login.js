@@ -9,19 +9,39 @@ import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import ApiService from '../services/ApiService'
 
 export default class Login extends Component {
     constructor(props){
         super(props);
 
         this.state = {
-            email:"",
+            username:"",
             password: ""
         };
     }
 
+    // login
+    chkUser = (e) => {
+        e.preventDefault();
+        let user_id = this.state.username;
+        let user_pw = this.state.password;
+        ApiService.chkUser(user_id, user_pw)
+            .then((res) =>{
+                console.log("result= "+res.data);
+                if (res.data === "Success"){
+                    this.props.history.push('/home');
+                }else{
+                    console.log(res.data);
+                    window.confirm('There is no username. Please try again.');
+                }
+            });
+
+    }
+
+
     validateForm() {
-        return this.state.email.length > 0 && this.state.password.length > 0
+        return this.state.username.length > 0 && this.state.password.length > 0
     }
 
     handleChange = event => {
@@ -56,9 +76,9 @@ export default class Login extends Component {
                 </Container>
                 
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="email" className='Loginform'>
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control autoFocus type="email" value={this.state.email} onChange={this.handleChange} />
+                    <Form.Group controlId="username" className='Loginform'>
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control autoFocus value={this.state.username} onChange={this.handleChange} />
                     </Form.Group>
                     <Form.Group controlId="password" className='Loginform'>
                         <Form.Label>Password</Form.Label>
@@ -77,7 +97,7 @@ export default class Login extends Component {
                             </Col>
                         </Row>
                     </Container>
-                    <Button size='lg' className='btn1 Login'  block disabled={!this.validateForm()} type="submit">Login</Button>
+                    <Button size='lg' className='btn1 Login'  block disabled={!this.validateForm()} type="submit" onClick={this.chkUser}>Login</Button>
                 </Form>
                 <div className='container'>
                     <p className='font12'>Don't have an account? <a href='./reg' className='font12'>Sign Up</a></p>
