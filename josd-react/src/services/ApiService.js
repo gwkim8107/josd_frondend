@@ -1,6 +1,8 @@
 import axios from 'axios'
-
-const USER_API_BASE_URL = 'http://localhost:8080/'
+// dev
+//const USER_API_BASE_URL = 'http://localhost:8080/'
+// prod
+const USER_API_BASE_URL = 'http://https://josdapi.azurewebsites.net/'
 
 class ApiService {
     
