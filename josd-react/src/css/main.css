@@ -1,0 +1,49 @@
+@media all and (min-width: 360px) {
+    .mainform {
+        width: 90%;
+        height: 90%;
+        margin: 2px auto;
+    }
+
+    h2{
+        color: blue;
+        margin: 0.2rem 0.5rem 0.2rem 0.2rem;
+    }
+
+    Form.Label{
+        font-weight: 400;
+    }
+    nav{
+        width: 100%;
+        margin: 2px auto;
+    }
+
+    .contents{
+        flex:1 auto;
+    }
+
+    .AutoCompleteText{
+        width: '95%';
+        border: 1px solid grey;
+    }
+
+    .AutoCompleteText ul{
+        list-style-type: none;
+        text-align: left;
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid grey
+    }
+    .AutoCompleteText li{
+        padding: 10px 5px;
+        cursor: pointer;
+    }
+    .AutoCompleteText li:hover{
+        text-decoration: underline;
+        background-color: rgba(128, 128, 128, 0.20);
+    }
+
+    .AutoCompleteText ul::before{
+        content: "";
+    }
+}

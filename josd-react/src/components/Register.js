@@ -1,11 +1,6 @@
 import React, {Component} from 'react'
 import Form from 'react-bootstrap/Form'
-import Navbar from '../components/Navibar';
-import styled from 'styled-components'
 import '../css/Login.css'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import ApiService from '../services/ApiService'
 

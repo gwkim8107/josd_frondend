@@ -1,8 +1,8 @@
 import axios from 'axios'
 // dev
-//const USER_API_BASE_URL = 'http://localhost:8080/'
+const USER_API_BASE_URL = 'http://localhost:8080/'
 // prod
-const USER_API_BASE_URL = 'https://josdapi.azurewebsites.net/'
+// const USER_API_BASE_URL = 'https://josdapi.azurewebsites.net/'
 
 class ApiService {
     
@@ -16,6 +16,11 @@ class ApiService {
         console.log('starts add a user service');
         // console.log(user);
         return axios.post(USER_API_BASE_URL+'registerUser', user);
+    }
+
+    updateChant(chantData){
+        console.log('starts to save chanting data');
+        return axios.post(USER_API_BASE_URL+'chant', chantData);
     }
 }
 
