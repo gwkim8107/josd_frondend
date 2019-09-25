@@ -8,14 +8,16 @@ import Col from 'react-bootstrap/Col'
 import ApiService from '../services/ApiService'
 import Slider from 'react-rangeslider'
 import 'react-rangeslider/lib/index.css'
+import HeadsetIcon from '@material-ui/icons/Headset';
 
 
 export default class Hearing extends Component{
 
     constructor(props, context) {
         super(props, context)
-        this.lecure_title = [
+        this.lecture_title = [
             'abc',
+            'afd',
             'def',
             'ghi',
             'jkl',
@@ -77,7 +79,7 @@ export default class Hearing extends Component{
         if(value.length > 0){
             // this.state.suggestions = [];
             console.log("value length = "+value.length);
-            console.log("object = "+this.lecture_title)
+            console.log("object = "+this.lecture_title);
             const regex = new RegExp(`^${value}`,'i');
             // suggestions = this.book_title.sort().filter( v => regex.test(v));
             suggestions = this.lecture_title.sort().filter(v => regex.test(v));
@@ -119,7 +121,7 @@ export default class Hearing extends Component{
                         <Row>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item active" aria-current="page"><h3 className="">Hearing</h3></li>
+                                    <li class="breadcrumb-item active" aria-current="page"><h3 className=""><HeadsetIcon fontSize="large"/> Hearing</h3></li>
                                 </ol>
                             </nav>
                             <Form.Group controlId="hearing" className='mainform'>
@@ -135,12 +137,21 @@ export default class Hearing extends Component{
                                     <Form.Label style={appComponent}> Hearing Total Time : {this.hearingsdvalue1} hrs {this.hearingsdvalue2} minutes </Form.Label>
                                     <br/>
                                     <Form.Label> Hours </Form.Label>
-                                    <Slider ref={sdlide1 => this.hearingsdvalue1 = hearing_sd1} value={hearing_sd1} orientation="horizontal" onChange={this.handleOnChange}/>
+                                    <Slider ref={sdlide1 => this.hearingsdvalue1 = hearing_sd1} 
+                                            value={hearing_sd1} 
+                                            orientation="horizontal" 
+                                            onChange={this.handleOnChange}
+                                            max="24"        
+                                    />
                                 </Col>
-                                
                                 <Col xs={12}> 
                                     <Form.Label> Min </Form.Label>
-                                    <Slider ref={sdlide2 => this.hearingsdvalue2 = hearing_sd2}  value={hearing_sd2} orientation="horizontal" onChange={this.handleOnChange2} />
+                                    <Slider ref={sdlide2 => this.hearingsdvalue2 = hearing_sd2}  
+                                            value={hearing_sd2} 
+                                            orientation="horizontal" 
+                                            onChange={this.handleOnChange2} 
+                                            max="60"
+                                    />
                                 </Col>                    
                             </Form.Group>
                             <Button size='lg' className='btn1' onClick={this.updateChant} block type="submit">Submit</Button>

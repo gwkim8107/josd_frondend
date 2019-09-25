@@ -13,6 +13,7 @@ import LabelBottomNavigation from './BottomNav'
 import Reading from './Reading'
 import Hearing from './Hearing'
 import Services from './Services'
+import { PeopleAlt } from '@material-ui/icons';
 
 export default class Main extends Component{
 
@@ -86,20 +87,20 @@ export default class Main extends Component{
                             <Row>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item active" aria-current="page"><h3 className="">Chanting</h3></li>
+                                        <li class="breadcrumb-item active" aria-current="page"><h3 className=""><PeopleAlt fontSize='large'/> Chanting </h3></li>
                                     </ol>
                                 </nav>
                                 <Form.Group controlId="chanting" className='mainform'>
                                     <Col xs={12}> 
-                                        <Form.Label >12AM - 7AM</Form.Label>
+                                        <Form.Label >12AM - 7AM : {this.chantsdvalue1} </Form.Label>
                                         <Slider ref={sdlide1 => this.chantsdvalue1 = chant_sd1} value={chant_sd1} orientation="horizontal" onChange={this.handleOnChange}/>
                                     </Col>  
                                     <Col xs={12}> 
-                                        <Form.Label>7AM - 6PM </Form.Label>
+                                        <Form.Label>7AM - 6PM : {this.chantsdvalue2} </Form.Label>
                                         <Slider ref={sdlide2 => this.chantsdvalue2 = chant_sd2}  value={chant_sd2} orientation="horizontal" onChange={this.handleOnChange2} />
                                     </Col>
                                     <Col xs={12}> 
-                                        <Form.Label>6PM - 12AM </Form.Label>
+                                        <Form.Label>6PM - 12AM : {this.chantsdvalue3} </Form.Label>
                                         <Slider ref={sdlide3 => this.chantsdvalue3 = chant_sd3}  value={chant_sd3} orientation="horizontal" onChange={this.handleOnChange3} />
                                     </Col>                     
                                 </Form.Group>

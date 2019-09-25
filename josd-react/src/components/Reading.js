@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col'
 import ApiService from '../services/ApiService'
 import Slider from 'react-rangeslider'
 import 'react-rangeslider/lib/index.css'
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 
 export default class Reading extends Component{
@@ -120,7 +121,7 @@ export default class Reading extends Component{
                         <Row>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item active" aria-current="page"><h3 className="">Reading</h3></li>
+                                    <li class="breadcrumb-item active" aria-current="page"><h3 className=""><MenuBookIcon fontSize="large"/> Reading</h3></li>
                                 </ol>
                             </nav>
                             <Form.Group controlId="reading" className='mainform'>
@@ -136,12 +137,22 @@ export default class Reading extends Component{
                                     <Form.Label style={appComponent}> Reading Total Time : {this.readingsdvalue1} hrs {this.readingsdvalue2} minutes </Form.Label>
                                     <br/>
                                     <Form.Label> Hours </Form.Label>
-                                    <Slider ref={sdlide1 => this.readingsdvalue1 = reading_sd1} value={reading_sd1} orientation="horizontal" onChange={this.handleOnChange}/>
+                                    <Slider ref={sdlide1 => this.readingsdvalue1 = reading_sd1} 
+                                            value={reading_sd1} 
+                                            orientation="horizontal" 
+                                            onChange={this.handleOnChange}
+                                            max='24'
+                                    />
                                 </Col>
                                 
                                 <Col xs={12}> 
                                     <Form.Label> Min </Form.Label>
-                                    <Slider ref={sdlide2 => this.readingsdvalue2 = reading_sd2}  value={reading_sd2} orientation="horizontal" onChange={this.handleOnChange2} />
+                                    <Slider ref={sdlide2 => this.readingsdvalue2 = reading_sd2}  
+                                            value={reading_sd2} 
+                                            orientation="horizontal" 
+                                            onChange={this.handleOnChange2} 
+                                            max='60'
+                                        />
                                 </Col>                    
                             </Form.Group>
                             <Button size='lg' className='btn1' onClick={this.updateChant} block type="submit">Submit</Button>

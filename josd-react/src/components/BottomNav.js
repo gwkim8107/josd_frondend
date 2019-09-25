@@ -4,7 +4,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 // import LocationOnIcon from '@material-ui/icons/LocationOn';
-import { Mail, ChatBubble, CalendarToday, PeopleAlt } from '@material-ui/icons';
+import { PeopleAlt } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import RoomServiceIcon from '@material-ui/icons/RoomService';
@@ -21,6 +21,7 @@ function LabelBottomNavigation() {
     const classes = useStyles();
     const [value, setValue] = React.useState('chanting');
 
+// Scroll to somewhere in the same screen
 function handleChange(event, newValue) {
         setValue(newValue);
         if(newValue === 'reading'){
