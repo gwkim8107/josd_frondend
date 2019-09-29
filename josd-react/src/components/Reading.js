@@ -120,8 +120,8 @@ export default class Reading extends Component{
                     <Container style={style}>
                         <Row>
                             <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item active" aria-current="page"><h3 className=""><MenuBookIcon fontSize="large"/> Reading</h3></li>
+                                <ol className="breadcrumb">
+                                    <li className="breadcrumb-item active" aria-current="page"><h3 className=""><MenuBookIcon fontSize="large"/> Reading</h3></li>
                                 </ol>
                             </nav>
                             <Form.Group controlId="reading" className='mainform'>
@@ -151,7 +151,7 @@ export default class Reading extends Component{
                                             value={reading_sd2} 
                                             orientation="horizontal" 
                                             onChange={this.handleOnChange2} 
-                                            max='60'
+                                            max="60"
                                         />
                                 </Col>                    
                             </Form.Group>

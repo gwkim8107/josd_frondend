@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, {Component, useContext} from 'react'
+import { BrowserRouter as Link } from "react-router-dom";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import logo from '../logo.png'
@@ -10,31 +11,54 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import ApiService from '../services/ApiService'
+import {CommonContext} from '../contexts/CommonContext'
+import {getCurrentDate} from './Util'
 
 export default class Login extends Component {
+    // static contextType = CommonContext;
+    
+
     constructor(props){
         super(props);
-
         this.state = {
             username:"",
-            password: ""
+            password: "",
+            rec_dt: ""
         };
+        
     }
+
+
+
 
     // login
     chkUser = (e) => {
         e.preventDefault();
         let user_id = this.state.username;
         let user_pw = this.state.password;
+        let rec_dt = this.state.rec_dt;
+        
+        if(rec_dt === ""){
+            rec_dt = getCurrentDate();
+        }
+        console.log("rec_dt = "+ rec_dt);
+        // updateAccount(user_id);
+        console.log("user_id= " + user_id)
+
         ApiService.chkUser(user_id, user_pw)
             .then((res) =>{
                 console.log("result= "+res.data);
                 if (res.data === "Success"){
-                    this.props.history.push('/home');
+                    window.localStorage.setItem("local_user_id",user_id);
+                    window.localStorage.setItem("local_rec_dt",rec_dt);
+                    this.props.history.push(`/home/${user_id}/${rec_dt}`);
+                    // return <Link to={`/home`}/>
+
                 }else{
                     console.log(res.data);
                     window.confirm('There is no username. Please try again.');
                 }
+
             });
 
     }
@@ -69,7 +93,9 @@ export default class Login extends Component {
     }
 
     render() {
+        // const { updateAccount } = this.context;
         return(
+            
             <div className="">
                 <Container>
                     <Image src={logo} alt="logo" className='logobox' rounded/>
@@ -98,6 +124,7 @@ export default class Login extends Component {
                         </Row>
                     </Container>
                     <Button size='lg' className='btn1 Login'  block disabled={!this.validateForm()} type="submit" onClick={this.chkUser}>Login</Button>
+                    {/* <Button size='lg' className='btn1 Login'  block disabled={!this.validateForm()} type="submit" onClick={updateAccount}>test</Button> */}
                 </Form>
                 <div className='container'>
                     <p className='font12'>Don't have an account? <a href='./reg' className='font12'>Sign Up</a></p>
@@ -109,7 +136,7 @@ export default class Login extends Component {
                             <GoogleLogin
                                     clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
                                     render={renderProps => (
-                                        <i class="fab fa-google-plus fa-3x" onClick={renderProps.onClick}></i>
+                                        <i className="fab fa-google-plus fa-3x" onClick={renderProps.onClick}></i>
                                     )}
                                     icon={true}
                                     onSuccess={this.responseGoogle}
@@ -122,7 +149,7 @@ export default class Login extends Component {
                                 appId="1088597931155576"
                                 callback={this.responseFacebook}
                                 render={renderProps => (
-                                    <i class="fab fa-facebook fa-3x" onClick={renderProps.onClick}></i>
+                                    <i className="fab fa-facebook fa-3x" onClick={renderProps.onClick}></i>
                                 )}
                             />
                         </Col>

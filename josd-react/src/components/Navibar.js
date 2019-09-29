@@ -4,24 +4,69 @@ import logo from '../logo.png'
 import styled from 'styled-components'
 import { ButtonContainer } from "./Button"
 import {Container, Row, Col} from 'react-bootstrap'
+import {getCurrentDate} from '../components/Util'
+import Login from '../components/Login'
 
 const Label = styled.div`
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: #FFFFFF;
     text-align: left;
 `;
 
+
 export default class Navibar extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            user_id:"",
+            rec_dt: ""
+        };
+        this.today = this.today.bind(this);   
+    }
+
+    callbackUserInfo = (_childUser_id, _childRec_dt) => {
+        this.setState({ user_id:_childUser_id, rec_dt:_childRec_dt });
+    }
+
+    today = () =>{
+        if(this.state.rec_dt === "" ){
+            this.setState({
+                rec_dt: getCurrentDate()
+            })
+            console.log("date = "+this.state.rec_dt);
+        }
+
+    }
+    componentDidMount() {
+        this.today();
+        let user_id = this.state.user_id;
+        let local_user_id = window.localStorage.getItem("local_user_id")
+        if(user_id === ""){
+            console.log("this state user_id is "+ user_id);
+            if(local_user_id !== ""){
+                this.setState({user_id: local_user_id});
+                console.log("get local_user_id done.");
+                console.log("this state user_id is now "+ user_id);
+            }
+        }
+    }
+
     render() {
+        
         return (
-            <NavWrpper className="navbar navbar-expand-sm navbar-dark-px-sm-10">
-                <Label><Link to="/home" className="nav-link">JOSD</Link></Label>
-                <ul className="navbar-nav align-items-center">
-                    <li className="nav-item ml-5">
-                        <i class="far fa-clock fa-2x"></i>
-                    </li>
-                </ul>
-            </NavWrpper>
+            <div>
+                <NavWrpper className="navbar navbar-expand-sm navbar-dark-px-sm-10">
+                    <Label><Link to={`/home/${this.state.user_id}/${this.state.rec_dt}`} className="nav-link">JOSD</Link></Label>
+                    <Label>  {  this.state.rec_dt}</Label>
+                    <ul className="navbar-nav align-items-right">
+                        <li className="nav-item ml-5">
+                            <Link to="/calendar/" className="nav-link"><i className="far fa-clock fa-2x"></i></Link>
+                        </li>
+                    </ul>
+                </NavWrpper>
+                {/* <Login callbackFromParent={this.callbackUserInfo}></Login> */}
+            </div>
         )
     }
 }

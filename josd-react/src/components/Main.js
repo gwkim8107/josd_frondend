@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, useContext} from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import logo from '../logo.png'
@@ -14,9 +14,9 @@ import Reading from './Reading'
 import Hearing from './Hearing'
 import Services from './Services'
 import { PeopleAlt } from '@material-ui/icons';
+import {CommonContext} from '../contexts/CommonContext'
 
 export default class Main extends Component{
-
     constructor(props, context) {
         super(props, context)
         this.state = {
@@ -25,11 +25,14 @@ export default class Main extends Component{
             chant_sd3: 0
         }
         this.updateChant = this.updateChant.bind(this);
+        // console.log("props.user_id = "+Object.values(this.props.match.params));
+        console.log("props.user_id = "+this.props.match.params.user_id);
     }
-
+    
     updateChant = (e) => {
         e.preventDefault();
-        let chantData = { user_id: 'test5', rec_dt: '2019-09-21', bf_8am: this.chantsdvalue1, 
+        
+        let chantData = { user_id: this.props.match.params.user_id, rec_dt: this.props.match.params.rec_dt, bf_8am: this.chantsdvalue1, 
                             btw_8to6pm: this.chantsdvalue2, af_6pm: this.chantsdvalue3 };
 
         console.log("check data = "+Object.values(chantData));
@@ -47,6 +50,7 @@ export default class Main extends Component{
         this.setState({
             chant_sd1: event
         })
+        // console.log("props.user_id = "+Object.values(this.props.match.params));
         // console.log("slider1 value = "+this.chantsdvalue1);
     }
 
@@ -75,9 +79,11 @@ export default class Main extends Component{
     
 
     render() {
+
         let { chant_sd1 } = this.state;
         let { chant_sd2 } = this.state;
         let { chant_sd3 } = this.state;
+        
 
         return(
             <div className="contents">
@@ -86,8 +92,8 @@ export default class Main extends Component{
                         <Container ref={ (ref) => this.chantRef = ref} style={style}>
                             <Row>
                                 <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item active" aria-current="page"><h3 className=""><PeopleAlt fontSize='large'/> Chanting </h3></li>
+                                    <ol className="breadcrumb">
+                                        <li className="breadcrumb-item active" aria-current="page"><h3 className=""><PeopleAlt fontSize='large'/> Chanting </h3></li>
                                     </ol>
                                 </nav>
                                 <Form.Group controlId="chanting" className='mainform'>
@@ -129,6 +135,7 @@ export default class Main extends Component{
     }
 
 }
+Main.contextType = CommonContext;
 const style = {
     margin: '10px auto',
     width: '95%',
