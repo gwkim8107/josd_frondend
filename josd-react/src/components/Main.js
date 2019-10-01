@@ -98,11 +98,11 @@ export default class Main extends Component{
                                 </nav>
                                 <Form.Group controlId="chanting" className='mainform'>
                                     <Col xs={12}> 
-                                        <Form.Label >12AM - 7AM : {this.chantsdvalue1} </Form.Label>
+                                        <Form.Label >12AM - 8AM : {this.chantsdvalue1} </Form.Label>
                                         <Slider ref={sdlide1 => this.chantsdvalue1 = chant_sd1} value={chant_sd1} orientation="horizontal" onChange={this.handleOnChange}/>
                                     </Col>  
                                     <Col xs={12}> 
-                                        <Form.Label>7AM - 6PM : {this.chantsdvalue2} </Form.Label>
+                                        <Form.Label>8AM - 6PM : {this.chantsdvalue2} </Form.Label>
                                         <Slider ref={sdlide2 => this.chantsdvalue2 = chant_sd2}  value={chant_sd2} orientation="horizontal" onChange={this.handleOnChange2} />
                                     </Col>
                                     <Col xs={12}> 
