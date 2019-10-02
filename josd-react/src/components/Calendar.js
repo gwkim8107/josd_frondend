@@ -3,24 +3,43 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import {formatDate} from './Util'
 
 
 export default class Calendar extends Component {
-    state = {
-        startDate: new Date()
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            startDate: new Date()
+        };
+        this.updateDate = this.updateDate.bind(this);
+    }
 
     handleChange = date => {
+        let strDate = formatDate(date);
         this.setState({
             startDate: date
         });
+        // strDate = this.state.startDate;
+        console.log("date = "+formatDate(date))
+        console.log("startDate = " + this.state.startDate);
+        console.log("strDate = "+ strDate)
     };
 
     validateForm() {
-        return this.state.startDate.length > 0 && this.state.password.length > 0
+        return this.state.startDate.length > 0
+    }
+
+    updateDate= (e) =>{
+        e.preventDefault();
+        // console.log("startDate2 = " + this.state.startDate );
+        window.localStorage.setItem("local_rec_dt",formatDate(this.state.startDate));
+        let local_user_id = window.localStorage.getItem("local_user_id")
+        this.props.history.push(`/home/${local_user_id}/${formatDate(this.state.startDate)}`);
     }
 
     render() {
+        
         return (
             <div className='container' style={style}>
                 <DatePicker
@@ -32,9 +51,9 @@ export default class Calendar extends Component {
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group controlId="selDate" className='Loginform'>
                         <Form.Label>Selected Date</Form.Label>
-                        <Form.Control autoFocus value={this.state.startDate} onChange={this.handleChange} />
+                        <Form.Control autoFocus value={formatDate(this.state.startDate)} onChange={this.handleChange} />
                     </Form.Group>
-                    <Button size='lg' className='btn1 Login' type="submit" onClick={this.chkUser}>Apply</Button>
+                    <Button size='lg' className='btn1 Login' type="submit" onClick={this.updateDate}>Apply</Button>
                 </Form>
             </div>
         )

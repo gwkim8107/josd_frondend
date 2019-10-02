@@ -22,7 +22,7 @@ export default class Reading extends Component{
             'jkl',
             'mno'
         ];
-        console.log("props = "+this.props)
+        console.log("props = "+this.props.userIdFromMain);
         this.state = {
             reading_sd1: 0,
             reading_sd2: 0,
@@ -34,10 +34,12 @@ export default class Reading extends Component{
 
     updateReading = (e) => {
         e.preventDefault();
-        let redingData = { user_id: 'test5', rec_dt: '2019-09-21', sub_area: 'R', btw_8to6pm: this.chantsdvalue2, af_6pm: this.chantsdvalue3 };
+        let redingData = { user_id: this.props.userIdFromMain, rec_dt: this.props.recDtFromMain, sub_area: 'R', 
+                            sub_name: this.state.text, sub_dura: ( this.readingsdvalue1 + this.readingsdvalue2 * 60 ), 
+                                user_id_1: this.props.userIdFromMain };
 
         console.log("check data = "+Object.values(redingData));
-        // ApiService.redingData(redingData)
+        // ApiService.updateReading(redingData)
         // .then(res =>{
         //     console.log("done");
         //     this.setState({message: 'Data saved.'});
@@ -51,14 +53,15 @@ export default class Reading extends Component{
         this.setState({
             reading_sd1: event
         })
-        // console.log("slider1 value = "+this.chantsdvalue1);
+        console.log("slider1 value = "+this.chantsdvalue1);
+        console.log("user_id in reading.js "+this.props.children);
     }
 
     handleOnChange2 = (event) => {
         this.setState({
             reading_sd2: event
         })
-        // console.log("slider2 value = "+this.chantsdvalue2);
+        console.log("slider2 value = "+ ( this.readingsdvalue1 + this.readingsdvalue2 * 60 ));
     }
 
 
@@ -66,11 +69,11 @@ export default class Reading extends Component{
         event.preventDefault();
     }
 
-    handleChange = event => {
-        this.setState({
-            [event.target.id]: event.target.value
-        })
-    }
+    // handleChange = event => {
+    //     this.setState({
+    //         [event.target.id]: event.target.value
+    //     })
+    // }
     
     onTextChanged = (e) =>{
         console.log("value "+ e.target.value);
@@ -134,28 +137,30 @@ export default class Reading extends Component{
                                 </Col>
                                 <Col xs={12}> 
                                     <hr/>
-                                    <Form.Label style={appComponent}> Reading Total Time : {this.readingsdvalue1} hrs {this.readingsdvalue2} minutes </Form.Label>
+                                    <Form.Label style={appComponent}> Reading Total Time : {this.readingsdvalue2} hrs {this.readingsdvalue1} minutes </Form.Label>
                                     <br/>
-                                    <Form.Label> Hours </Form.Label>
+                                    <Form.Label> Mins </Form.Label>
                                     <Slider ref={sdlide1 => this.readingsdvalue1 = reading_sd1} 
                                             value={reading_sd1} 
                                             orientation="horizontal" 
                                             onChange={this.handleOnChange}
-                                            max='24'
+                                            onChangeComplete={this.updateReading}
+                                            max='60'
                                     />
                                 </Col>
                                 
                                 <Col xs={12}> 
-                                    <Form.Label> Min </Form.Label>
+                                    <Form.Label> Hours </Form.Label>
                                     <Slider ref={sdlide2 => this.readingsdvalue2 = reading_sd2}  
                                             value={reading_sd2} 
                                             orientation="horizontal" 
-                                            onChange={this.handleOnChange2} 
-                                            max="60"
+                                            onChange={this.handleOnChange2}
+                                            onChangeComplete={this.updateReading}
+                                            max="24"
                                         />
                                 </Col>                    
                             </Form.Group>
-                            <Button size='lg' className='btn1' onClick={this.updateChant} block type="submit">Submit</Button>
+                            {/* <Button size='lg' className='btn1' onClick={this.updateChant} block type="submit">Submit</Button> */}
                         </Row>
                     </Container>
                 </Form>

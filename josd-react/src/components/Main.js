@@ -22,7 +22,8 @@ export default class Main extends Component{
         this.state = {
             chant_sd1: 0,
             chant_sd2: 0,
-            chant_sd3: 0
+            chant_sd3: 0,
+            message: ""
         }
         this.updateChant = this.updateChant.bind(this);
         // console.log("props.user_id = "+Object.values(this.props.match.params));
@@ -30,7 +31,7 @@ export default class Main extends Component{
     }
     
     updateChant = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         
         let chantData = { user_id: this.props.match.params.user_id, rec_dt: this.props.match.params.rec_dt, bf_8am: this.chantsdvalue1, 
                             btw_8to6pm: this.chantsdvalue2, af_6pm: this.chantsdvalue3 };
@@ -40,16 +41,27 @@ export default class Main extends Component{
         .then(res =>{
             console.log("done");
             this.setState({message: 'Data saved.'});
-            window.confirm('Data saved.');
+            // window.confirm('Data saved.');
             console.log("result= "+this.state.message);
             //this.props.history.push('/');
         });
+    }
+
+    componentDidMount(){
+        let user_chk = window.localStorage.getItem("local_user_id");
+        console.log("user_chk = "+user_chk)
+        if(user_chk === ""){
+            window.confirm('There is not user information. Please login again.');
+            this.props.history.push('/');
+        }
     }
     
     handleOnChange = (event) => {
         this.setState({
             chant_sd1: event
         })
+        // setTimeout(50000);
+        // this.updateChant();
         // console.log("props.user_id = "+Object.values(this.props.match.params));
         // console.log("slider1 value = "+this.chantsdvalue1);
     }
@@ -72,10 +84,10 @@ export default class Main extends Component{
         event.preventDefault();
     }
 
-    scrollToMyRef = () => {
-        console.log("ScrollTo => chantRef")
-        window.scrollTo(0, this.chantRef.current.offsetTop) 
-    }
+    // scrollToMyRef = () => {
+    //     console.log("ScrollTo => chantRef")
+    //     window.scrollTo(0, this.chantRef.current.offsetTop) 
+    // }
     
 
     render() {
@@ -98,34 +110,51 @@ export default class Main extends Component{
                                 </nav>
                                 <Form.Group controlId="chanting" className='mainform'>
                                     <Col xs={12}> 
-                                        <Form.Label >12AM - 7AM : {this.chantsdvalue1} </Form.Label>
-                                        <Slider ref={sdlide1 => this.chantsdvalue1 = chant_sd1} value={chant_sd1} orientation="horizontal" onChange={this.handleOnChange}/>
+                                        <Form.Label >12AM - 8AM : {this.chantsdvalue1} </Form.Label>
+                                        <Slider ref={sdlide1 => this.chantsdvalue1 = chant_sd1} 
+                                                value={chant_sd1} 
+                                                orientation="horizontal" 
+                                                onChange={this.handleOnChange}
+                                                onChangeComplete={this.updateChant}
+                                                max="30"
+                                        />
                                     </Col>  
                                     <Col xs={12}> 
-                                        <Form.Label>7AM - 6PM : {this.chantsdvalue2} </Form.Label>
-                                        <Slider ref={sdlide2 => this.chantsdvalue2 = chant_sd2}  value={chant_sd2} orientation="horizontal" onChange={this.handleOnChange2} />
+                                        <Form.Label>8AM - 6PM : {this.chantsdvalue2} </Form.Label>
+                                        <Slider ref={sdlide2 => this.chantsdvalue2 = chant_sd2} 
+                                                max="30" 
+                                                value={chant_sd2} 
+                                                orientation="horizontal" 
+                                                onChange={this.handleOnChange2}
+                                                onChangeComplete={this.updateChant}
+                                        />
                                     </Col>
                                     <Col xs={12}> 
                                         <Form.Label>6PM - 12AM : {this.chantsdvalue3} </Form.Label>
-                                        <Slider ref={sdlide3 => this.chantsdvalue3 = chant_sd3}  value={chant_sd3} orientation="horizontal" onChange={this.handleOnChange3} />
+                                        <Slider ref={sdlide3 => this.chantsdvalue3 = chant_sd3} 
+                                                max="30" value={chant_sd3} 
+                                                orientation="horizontal" 
+                                                onChange={this.handleOnChange3} 
+                                                onChangeComplete={this.updateChant}        
+                                        />
                                     </Col>                     
                                 </Form.Group>
-                                <Button size='lg' className='btn1' onClick={this.updateChant} block type="submit">Submit</Button>
+                                {/* <Button size='lg' className='btn1' onClick={this.updateChant} block type="submit">Submit</Button> */}
                             </Row>
                         </Container>   
                     </Form>
                 </div>
                 <hr/>
                 <div id="reading" className='contents'>
-                    <Reading></Reading>
+                    <Reading userIdFromMain={this.props.match.params.user_id} recDtFromMain={this.props.match.params.rec_dt}></Reading>
                 </div>
                 <hr/>
                 <div id="listening" className='contents'>
-                    <Hearing></Hearing>
+                    <Hearing userIdFromMain={this.props.match.params.user_id} recDtFromMain={this.props.match.params.rec_dt}></Hearing>
                 </div>
                 <hr/>
                 <div>
-                    <Services></Services>
+                    <Services userIdFromMain={this.props.match.params.user_id} recDtFromMain={this.props.match.params.rec_dt}></Services>
                 </div>
                 <div style={bottom}>
                     <LabelBottomNavigation />  

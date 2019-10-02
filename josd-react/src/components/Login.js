@@ -1,18 +1,17 @@
-import React, {Component, useContext} from 'react'
-import { BrowserRouter as Link } from "react-router-dom";
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import logo from '../logo.png'
-import Image from 'react-bootstrap/Image'
-import '../css/Login.css'
-import GoogleLogin from 'react-google-login'
+import React, { Component } from 'react';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image';
+import Row from 'react-bootstrap/Row';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import ApiService from '../services/ApiService'
-import {CommonContext} from '../contexts/CommonContext'
-import {getCurrentDate} from './Util'
+import GoogleLogin from 'react-google-login';
+import { CommonContext } from '../contexts/CommonContext';
+import '../css/Login.css';
+import logo from '../logo.png';
+import ApiService from '../services/ApiService';
+import { getCurrentDate } from './Util';
 
 export default class Login extends Component {
     // static contextType = CommonContext;
@@ -25,7 +24,7 @@ export default class Login extends Component {
             password: "",
             rec_dt: ""
         };
-        
+        this.chkUser = this.chkUser.bind(this);
     }
 
 
@@ -159,3 +158,5 @@ export default class Login extends Component {
         );
     }
 }
+
+Login.contextType = CommonContext;

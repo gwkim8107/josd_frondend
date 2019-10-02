@@ -8,9 +8,16 @@ import {getCurrentDate} from '../components/Util'
 import Login from '../components/Login'
 
 const Label = styled.div`
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     color: #FFFFFF;
     text-align: left;
+`;
+
+const Smlabel = styled.div`
+    font-size: 1.0rem;
+    color: #FFFFFF;
+    text-align: center;
+    margin: 10px 10px 10px 30px;
 `;
 
 
@@ -35,9 +42,14 @@ export default class Navibar extends Component {
                 rec_dt: getCurrentDate()
             })
             console.log("date = "+this.state.rec_dt);
+        }else if(this.state.rec_dt !== "" ){
+            this.setState({
+                rec_dt: window.localStorage.getItem("local_rec_dt")
+            })
         }
-
+        setTimeout(this.today, 10000);
     }
+
     componentDidMount() {
         this.today();
         let user_id = this.state.user_id;
@@ -58,7 +70,7 @@ export default class Navibar extends Component {
             <div>
                 <NavWrpper className="navbar navbar-expand-sm navbar-dark-px-sm-10">
                     <Label><Link to={`/home/${this.state.user_id}/${this.state.rec_dt}`} className="nav-link">JOSD</Link></Label>
-                    <Label>  {  this.state.rec_dt}</Label>
+                    <Smlabel>  {  this.state.rec_dt}</Smlabel>
                     <ul className="navbar-nav align-items-right">
                         <li className="nav-item ml-5">
                             <Link to="/calendar/" className="nav-link"><i className="far fa-clock fa-2x"></i></Link>
