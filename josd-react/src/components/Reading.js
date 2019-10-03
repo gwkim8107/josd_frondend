@@ -17,17 +17,18 @@ export default class Reading extends Component{
         super(props, context)
         this.book_title = [
             'abc',
-            'def',
-            'ghi',
-            'jkl',
-            'mno'
+            'abcd',
+            'abcde',
+            'bcdef', 
+            'bcdefgh'
         ];
         console.log("props = "+this.props.userIdFromMain);
         this.state = {
             reading_sd1: 0,
             reading_sd2: 0,
             suggestions: [],
-            text: ''
+            text: '',
+            message: ""
         }
         this.updateReading = this.updateReading.bind(this);
     }
@@ -39,22 +40,24 @@ export default class Reading extends Component{
                                 user_id_1: this.props.userIdFromMain };
 
         console.log("check data = "+Object.values(redingData));
-        // ApiService.updateReading(redingData)
-        // .then(res =>{
-        //     console.log("done");
-        //     this.setState({message: 'Data saved.'});
-        //     window.confirm('Data saved.');
-        //     console.log("result= "+this.state.message);
-        //     //this.props.history.push('/');
-        // });
+        ApiService.updateReading(redingData)
+        .then(res =>{
+            console.log("done");
+            console.log("res data = "+res.data);
+            console.log("res status = "+res.status);
+            console.log("res statusText = "+res.statusText);
+            this.setState({message: 'Data saved.'});
+            console.log("result= "+this.state.message);
+            //this.props.history.push('/');
+        });
     }
     
     handleOnChange = (event) => {
         this.setState({
             reading_sd1: event
         })
-        console.log("slider1 value = "+this.chantsdvalue1);
-        console.log("user_id in reading.js "+this.props.children);
+        // console.log("slider1 value = "+this.chantsdvalue1);
+        // console.log("user_id in reading.js "+this.props.children);
     }
 
     handleOnChange2 = (event) => {
@@ -80,13 +83,13 @@ export default class Reading extends Component{
         const value = e.target.value;
         let suggestions = [];
         if(value.length > 0){
-            // this.state.suggestions = [];
-            console.log("value length = "+value.length);
-            console.log("object = "+this.book_title)
             const regex = new RegExp(`^${value}`,'i');
-            // suggestions = this.book_title.sort().filter( v => regex.test(v));
             suggestions = this.book_title.sort().filter(v => regex.test(v));
-            console.log("suggestions = "+suggestions)
+            // suggestions = this.book_title.sort().filter( v => regex.test(v));
+            // console.log("suggestions = "+suggestions)
+            // this.state.suggestions = [];
+            // console.log("value length = "+value.length);
+            // console.log("object = "+this.book_title)
         }
         this.setState( () => ({ suggestions, text:value }));
     }
@@ -105,7 +108,7 @@ export default class Reading extends Component{
         }
         return (
             <ul>
-                {suggestions.map((book_title) => <li onClick={() => this.suggestionSelected(book_title)}>{book_title}</li>)}
+                {suggestions.map((book_title, i) => <li key={i} onClick={() => this.suggestionSelected(book_title)}>{book_title}</li>)}
             </ul>
         );
     }
