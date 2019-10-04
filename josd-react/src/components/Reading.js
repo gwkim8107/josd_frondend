@@ -43,9 +43,9 @@ export default class Reading extends Component{
         ApiService.updateReading(redingData)
         .then(res =>{
             console.log("done");
-            console.log("res data = "+res.data);
-            console.log("res status = "+res.status);
-            console.log("res statusText = "+res.statusText);
+            console.log("res data in reading= "+res.data);
+            console.log("res status in reading = "+res.status);
+            console.log("res statusText in reading = "+res.statusText);
             this.setState({message: 'Data saved.'});
             console.log("result= "+this.state.message);
             //this.props.history.push('/');

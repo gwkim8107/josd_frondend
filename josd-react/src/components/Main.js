@@ -40,6 +40,7 @@ export default class Main extends Component{
         ApiService.updateChant(chantData)
         .then(res =>{
             console.log("done");
+            console.log("res.responseTex= "+res.data);
             this.setState({message: 'Data saved.'});
             // window.confirm('Data saved.');
             console.log("result= "+this.state.message);
