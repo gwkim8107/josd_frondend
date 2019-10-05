@@ -39,11 +39,11 @@ export default class Main extends Component{
         console.log("check data = "+Object.values(chantData));
         ApiService.updateChant(chantData)
         .then(res =>{
-            console.log("done");
-            console.log("res.responseTex= "+res.data);
+            // console.log("done");
+            // console.log("res.responseTex= "+res.data);
             this.setState({message: 'Data saved.'});
             // window.confirm('Data saved.');
-            console.log("result= "+this.state.message);
+            // console.log("result= "+this.state.message);
             //this.props.history.push('/');
         });
     }

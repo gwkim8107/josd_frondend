@@ -35,10 +35,10 @@ export default class Hearing extends Component{
         console.log("check data = "+Object.values(hearingData));
         ApiService.updateHearing(hearingData)
         .then(res =>{
-            console.log("done");
-            console.log("res status in hearing = "+ res.status);
-            console.log("res data in hearing  = "+ res.status);
-            console.log("res statusText in hearing = "+res.statusText);
+            // console.log("done");
+            // console.log("res status in hearing = "+ res.status);
+            // console.log("res data in hearing  = "+ res.status);
+            // console.log("res statusText in hearing = "+res.statusText);
             this.setState({message: 'Data saved.'});
 
             console.log("result= "+this.state.message);
@@ -72,7 +72,7 @@ export default class Hearing extends Component{
     }
     
     onTextChanged = (e) =>{
-        console.log("value "+ e.target.value);
+        // console.log("value "+ e.target.value);
         const value = e.target.value;
         let suggestions = [];
         if(value.length > 0){
@@ -114,8 +114,8 @@ export default class Hearing extends Component{
                     <Container style={style}>
                         <Row>
                             <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item active" aria-current="page"><h3 className=""><HeadsetIcon fontSize="large"/> Hearing</h3></li>
+                                <ol className="breadcrumb">
+                                    <li className="breadcrumb-item active" aria-current="page"><h3 className=""><HeadsetIcon fontSize="large"/> Hearing</h3></li>
                                 </ol>
                             </nav>
                             <Form.Group controlId="hearing" className='mainform'>
@@ -136,7 +136,7 @@ export default class Hearing extends Component{
                                             orientation="horizontal" 
                                             onChange={this.handleOnChange}
                                             onChangeComplete={this.updateHearing}
-                                            max="24"        
+                                            max="60"        
                                     />
                                 </Col>
                                 <Col xs={12}> 
@@ -146,7 +146,7 @@ export default class Hearing extends Component{
                                             orientation="horizontal" 
                                             onChange={this.handleOnChange2}
                                             onChangeComplete={this.updateHearing}
-                                            max="60"
+                                            max="24"
                                     />
                                 </Col>                    
                             </Form.Group>

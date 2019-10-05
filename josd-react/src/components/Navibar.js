@@ -41,7 +41,7 @@ export default class Navibar extends Component {
             this.setState({
                 rec_dt: getCurrentDate()
             })
-            console.log("date = "+this.state.rec_dt);
+            // console.log("date = "+this.state.rec_dt);
         }else if(this.state.rec_dt !== "" ){
             this.setState({
                 rec_dt: window.localStorage.getItem("local_rec_dt")
@@ -55,11 +55,11 @@ export default class Navibar extends Component {
         let user_id = this.state.user_id;
         let local_user_id = window.localStorage.getItem("local_user_id")
         if(user_id === ""){
-            console.log("this state user_id is "+ user_id);
+            // console.log("this state user_id is "+ user_id);
             if(local_user_id !== ""){
                 this.setState({user_id: local_user_id});
-                console.log("get local_user_id done.");
-                console.log("this state user_id is now "+ user_id);
+                // console.log("get local_user_id done.");
+                // console.log("this state user_id is now "+ user_id);
             }
         }
     }

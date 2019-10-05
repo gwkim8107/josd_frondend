@@ -40,13 +40,13 @@ export default class Login extends Component {
         if(rec_dt === ""){
             rec_dt = getCurrentDate();
         }
-        console.log("rec_dt = "+ rec_dt);
+        // console.log("rec_dt = "+ rec_dt);
         // updateAccount(user_id);
-        console.log("user_id= " + user_id)
+        // console.log("user_id= " + user_id)
 
         ApiService.chkUser(user_id, user_pw)
             .then((res) =>{
-                console.log("result= "+res.data);
+                // console.log("result= "+res.data);
                 if (res.data === "Success"){
                     window.localStorage.setItem("local_user_id",user_id);
                     window.localStorage.setItem("local_rec_dt",rec_dt);
@@ -54,7 +54,7 @@ export default class Login extends Component {
                     // return <Link to={`/home`}/>
 
                 }else{
-                    console.log(res.data);
+                    // console.log(res.data);
                     window.confirm('There is no username. Please try again.');
                 }
 
@@ -76,6 +76,13 @@ export default class Login extends Component {
     handleSubmit = event => {
         event.preventDefault();
     }
+
+    rememberMe = (e) => {
+        this.setState({
+            username : window.localStorage.getItem("local_user_id")
+        })
+    }
+
     // Google Login
     responseGoogle = (res) => {
         console.log(res);
@@ -95,9 +102,9 @@ export default class Login extends Component {
         // const { updateAccount } = this.context;
         return(
             
-            <div className="">
+            <div className="" style={style}>
                 <Container>
-                    <Image src={logo} alt="logo" className='logobox' rounded/>
+                    <Image src={logo} alt="logo" className='img-responsive logobox' rounded/>
                 </Container>
                 
                 <Form onSubmit={this.handleSubmit}>
@@ -112,7 +119,7 @@ export default class Login extends Component {
                     <Container className='Loginform'>
                         <Row>
                             <Col xs={6}>
-                                <Form.Check type="checkbox" label="Remember Password" className='Login1 font12'/>
+                                <Form.Check controlId="remember" type="checkbox" label="Remember username" className='Login1 font12' onClick={this.rememberMe}/>
                             </Col>
                             <Col xs={6}>
                                 <div className='Login2'>
@@ -160,3 +167,7 @@ export default class Login extends Component {
 }
 
 Login.contextType = CommonContext;
+
+const style = {
+    height: "100%"
+};
