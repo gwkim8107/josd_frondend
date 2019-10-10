@@ -42,6 +42,11 @@ class ApiService {
         console.log('starts to save much more service data');
         return axios.post(USER_API_BASE_URL+'service', mmServiceData);
     }
+
+    retriveChartService(user_id){
+        console.log('starts to load chart data');
+        return axios.post(USER_API_BASE_URL+'chart?user_id='+user_id);
+    }
 }
 
 export default new ApiService();

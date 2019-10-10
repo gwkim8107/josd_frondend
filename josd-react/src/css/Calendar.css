@@ -1,5 +1,5 @@
 @media all and (min-width: 360px) {
-    .Login {
+    .Login3 {
       padding: 1px 1px 1px 1px;
     }
 
@@ -42,8 +42,8 @@
       margin: 5 auto;
     }
 
-    .btn1{
-      width: 90% !important;
-      margin: auto;
+    .btn2{
+      width: 100%;
+      margin: 20px auto;
     }
   }

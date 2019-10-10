@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import {formatDate} from './Util'
+import '../css/Calendar.css';
 
 
 export default class Calendar extends Component {
@@ -16,14 +17,14 @@ export default class Calendar extends Component {
     }
 
     handleChange = date => {
-        let strDate = formatDate(date);
+        // let strDate = formatDate(date);
         this.setState({
             startDate: date
         });
         // strDate = this.state.startDate;
-        console.log("date = "+formatDate(date))
-        console.log("startDate = " + this.state.startDate);
-        console.log("strDate = "+ strDate)
+        // console.log("date = "+formatDate(date))
+        // console.log("startDate = " + this.state.startDate);
+        // console.log("strDate = "+ strDate)
     };
 
     validateForm() {
@@ -43,6 +44,7 @@ export default class Calendar extends Component {
         return (
             <div className='container' style={style}>
                 <DatePicker
+                    maxDate={this.state.startDate}
                     selected={this.state.startDate}
                     onChange={this.handleChange}
                     inline
@@ -53,8 +55,8 @@ export default class Calendar extends Component {
                         <Form.Label>Selected Date</Form.Label>
                         <Form.Control autoFocus value={formatDate(this.state.startDate)} onChange={this.handleChange} />
                     </Form.Group>
-                    <Button size='lg' className='btn1 Login' type="submit" onClick={this.updateDate}>Apply</Button>
                 </Form>
+                <Button size='lg' className='btn2 Login3' type="submit" onClick={this.updateDate}>Apply</Button>
             </div>
         )
     }

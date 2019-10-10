@@ -64,7 +64,7 @@ export default class Login extends Component {
 
 
     validateForm() {
-        return this.state.username.length > 0 && this.state.password.length > 0
+        // return this.state.username.length > 0 && this.state.password.length > 0
     }
 
     handleChange = event => {
@@ -78,9 +78,13 @@ export default class Login extends Component {
     }
 
     rememberMe = (e) => {
-        this.setState({
-            username : window.localStorage.getItem("local_user_id")
-        })
+        let chk_user_id = window.localStorage.getItem("local_user_id");
+        if (chk_user_id !== "" || "undefined") {
+            this.setState({
+                username : window.localStorage.getItem("local_user_id")
+            })
+        }
+        
     }
 
     // Google Login
@@ -119,7 +123,7 @@ export default class Login extends Component {
                     <Container className='Loginform'>
                         <Row>
                             <Col xs={6}>
-                                <Form.Check controlId="remember" type="checkbox" label="Remember username" className='Login1 font12' onClick={this.rememberMe}/>
+                                <Form.Check controlId="remember" type="checkbox" label="Remember me" className='Login1 font12' onClick={this.rememberMe}/>
                             </Col>
                             <Col xs={6}>
                                 <div className='Login2'>
@@ -129,7 +133,7 @@ export default class Login extends Component {
                             </Col>
                         </Row>
                     </Container>
-                    <Button size='lg' className='btn1 Login'  block disabled={!this.validateForm()} type="submit" onClick={this.chkUser}>Login</Button>
+                    <Button size='lg' className='btn1 Login' block type="submit" onClick={this.chkUser}>Login</Button>
                     {/* <Button size='lg' className='btn1 Login'  block disabled={!this.validateForm()} type="submit" onClick={updateAccount}>test</Button> */}
                 </Form>
                 <div className='container'>

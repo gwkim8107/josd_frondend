@@ -9,10 +9,11 @@ import { Link } from 'react-router-dom';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import RoomServiceIcon from '@material-ui/icons/RoomService';
 import HeadsetIcon from '@material-ui/icons/Headset';
+import InsertChartIcon from '@material-ui/icons/InsertChart';
 
 const useStyles = makeStyles({
     root: {
-        width: 320,
+        width: 400,
     },
 });
 
@@ -25,17 +26,21 @@ function LabelBottomNavigation() {
 function handleChange(event, newValue) {
         setValue(newValue);
         if(newValue === 'reading'){
-            console.log("value = " + newValue)
+            // console.log("value = " + newValue)
             window.scrollTo(0, 506);
         }else if(newValue === 'chanting'){
-            console.log("value = " + newValue)
+            // console.log("value = " + newValue)
             window.scrollTo(0, 0);
         }else if(newValue === 'hearing'){
-            console.log("value = " + newValue)
+            // console.log("value = " + newValue)
             window.scrollTo(0, 1006);
         }else if(newValue === 'service'){
-            console.log("value = " + newValue)
+            // console.log("value = " + newValue)
             window.scrollTo(0, 1501);
+        }else if(newValue === 'chart'){
+            // this.props.history.push(`/chart/${this.props.userIdFromMain}/${this.props.recDtFromMain}`);
+            window.location.href = 'https://josd-front.azurewebsites.net/chart/'+window.localStorage.getItem("local_user_id");
+            
         }
         
 }
@@ -43,10 +48,11 @@ function handleChange(event, newValue) {
     return (
         <div>
             <BottomNavigation value={value} onChange={handleChange} className={classes.stickToBottom}>
-            <BottomNavigationAction label="Chanting" value="chanting" icon={<PeopleAlt/>} />
-            <BottomNavigationAction label="Reading" value="reading" icon={<MenuBookIcon />} />
-            <BottomNavigationAction label="Hearing" value="hearing" icon={<HeadsetIcon />} />
-            <BottomNavigationAction label="Service" value="service" icon={<RoomServiceIcon />} />
+            <BottomNavigationAction value="chanting" icon={<PeopleAlt/>} />
+            <BottomNavigationAction value="reading" icon={<MenuBookIcon />} />
+            <BottomNavigationAction value="hearing" icon={<HeadsetIcon />} />
+            <BottomNavigationAction value="service" icon={<RoomServiceIcon />} />
+            <BottomNavigationAction value="chart" icon={<InsertChartIcon />} />
             </BottomNavigation>
         </div>
     );
