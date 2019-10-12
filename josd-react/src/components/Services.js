@@ -9,6 +9,9 @@ import ApiService from '../services/ApiService'
 import Slider from 'react-rangeslider'
 import 'react-rangeslider/lib/index.css'
 import RoomServiceIcon from '@material-ui/icons/RoomService';
+import PulseLoader from 'react-spinners/PulseLoader';
+import RiseLoader from 'react-spinners/RiseLoader';
+
 
 export default class Services extends Component{
 
@@ -125,7 +128,14 @@ export default class Services extends Component{
                             <Row>
                                 <nav aria-label="breadcrumb">
                                     <ol className="breadcrumb">
-                                        <li className="breadcrumb-item active" aria-current="page"><h3 className=""><RoomServiceIcon fontSize="large"/> Service</h3></li>
+                                        <li className="breadcrumb-item active" aria-current="page"><h3 className="">
+                                            {/* <RoomServiceIcon fontSize="large"/>  */}
+                                            <PulseLoader
+                                                css={spinner}
+                                                sizeUnit={"px"}
+                                                size={12}
+                                                color={'#08A045'}
+                                                loading={true}/>  Service</h3></li>
                                     </ol>
                                 </nav>
                                 <Form.Group controlId="serviceName" className='mainform'>
@@ -162,7 +172,14 @@ export default class Services extends Component{
                             <Row>
                                 <nav aria-label="breadcrumb">
                                     <ol className="breadcrumb">
-                                        <li className="breadcrumb-item active" aria-current="page"><h3 className=""><RoomServiceIcon fontSize="small"/> + <RoomServiceIcon fontSize="small"/> Much More Service</h3></li>
+                                        <li className="breadcrumb-item active" aria-current="page"><h3 className="">
+                                            {/* <RoomServiceIcon fontSize="small"/> + <RoomServiceIcon fontSize="small"/>  */}
+                                            <RiseLoader
+                                                css={spinner}
+                                                sizeUnit={"px"}
+                                                size={12}
+                                                color={'#EFA00B'}
+                                                loading={true}/>  Much More Service</h3></li>
                                     </ol>
                                 </nav>
                                 <Form.Group controlId="mmServiceName" className='mainform'>
@@ -216,3 +233,8 @@ const lastComponent = {
 const appComponent = {
     margin: '10px auto',
 };
+
+const spinner = {
+    display: 'inline-block !important',
+    margin: '0 auto',
+}

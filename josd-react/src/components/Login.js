@@ -16,19 +16,21 @@ import { getCurrentDate } from './Util';
 export default class Login extends Component {
     // static contextType = CommonContext;
     
-
+    
     constructor(props){
         super(props);
         this.state = {
             username:"",
             password: "",
-            rec_dt: ""
+            rec_dt: "",
+            google_web_key : "171020464998-tvhaqrpfrmkqj3rfb3eqi6vqf126h9rp.apps.googleusercontent.com",
+            fb_web_key : "446185069583127"
         };
         this.chkUser = this.chkUser.bind(this);
     }
 
 
-
+    // google_web_key = "171020464998-tvhaqrpfrmkqj3rfb3eqi6vqf126h9rp.apps.googleusercontent.com";
 
     // login
     chkUser = (e) => {
@@ -90,17 +92,42 @@ export default class Login extends Component {
     // Google Login
     responseGoogle = (res) => {
         console.log(res);
+        let rec_dt = this.state.rec_dt;
+
+        if(rec_dt === ""){
+            rec_dt = getCurrentDate();
+        }
+        // console.log("username= "+ res.w3.U3)
+        window.localStorage.setItem("local_user_id",res.w3.U3);
+        window.localStorage.setItem("local_rec_dt",rec_dt);
+
+        this.props.history.push(`/home/${res.w3.U3}/${rec_dt}`);
+
     }
 
     //Login Fail
     responseFail = (err) => {
+        console.log(err);
         console.error(err)
+
+        
     }
 
     // Facebook Login
     responseFacebook = (response) => {
         console.log(response);
+        let rec_dt = this.state.rec_dt;
+        if(rec_dt === ""){
+            rec_dt = getCurrentDate();
+        }
+        window.localStorage.setItem("local_user_id",response.userID);
+        window.localStorage.setItem("local_rec_dt",rec_dt);
+        this.props.history.push(`/home/${response.userID}/${rec_dt}`);
     }
+    componentDidMount(){
+        // this.responseGoogle();
+    }
+    
 
     render() {
         // const { updateAccount } = this.context;
@@ -144,7 +171,7 @@ export default class Login extends Component {
                     <Row>
                         <Col xs={6}>
                             <GoogleLogin
-                                    clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                                    clientId={this.state.google_web_key}
                                     render={renderProps => (
                                         <i className="fab fa-google-plus fa-3x" onClick={renderProps.onClick}></i>
                                     )}
@@ -156,7 +183,7 @@ export default class Login extends Component {
                         </Col>
                         <Col xs={6}>
                             <FacebookLogin
-                                appId="1088597931155576"
+                                appId={this.state.fb_web_key}
                                 callback={this.responseFacebook}
                                 render={renderProps => (
                                     <i className="fab fa-facebook fa-3x" onClick={renderProps.onClick}></i>

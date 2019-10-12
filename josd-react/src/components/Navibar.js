@@ -54,7 +54,7 @@ export default class Navibar extends Component {
         this.today();
         let user_id = this.state.user_id;
         let local_user_id = window.localStorage.getItem("local_user_id")
-        if(user_id === ""){
+        if(user_id === "" || user_id === null || user_id === 'undefined'){
             // console.log("this state user_id is "+ user_id);
             if(local_user_id !== ""){
                 this.setState({user_id: local_user_id});

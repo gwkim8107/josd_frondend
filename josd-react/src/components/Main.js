@@ -15,6 +15,8 @@ import Hearing from './Hearing'
 import Services from './Services'
 import { PeopleAlt } from '@material-ui/icons';
 import {CommonContext} from '../contexts/CommonContext'
+import RingLoader from 'react-spinners/RingLoader';
+
 
 export default class Main extends Component{
     constructor(props, context) {
@@ -106,7 +108,14 @@ export default class Main extends Component{
                             <Row>
                                 <nav aria-label="breadcrumb">
                                     <ol className="breadcrumb">
-                                        <li className="breadcrumb-item active" aria-current="page"><h3 className=""><PeopleAlt fontSize='large'/> Chanting </h3></li>
+                                        <li className="breadcrumb-item active" aria-current="page"><h3 className="">
+                                            {/* <PeopleAlt fontSize='large'/>  */}
+                                            <RingLoader
+                                                css={spinner}
+                                                sizeUnit={"px"}
+                                                size={40}
+                                                color={'#1A1B25'}
+                                                loading={true}/>  Chanting </h3></li>
                                     </ol>
                                 </nav>
                                 <Form.Group controlId="chanting" className='mainform'>
@@ -158,7 +167,7 @@ export default class Main extends Component{
                     <Services userIdFromMain={this.props.match.params.user_id} recDtFromMain={this.props.match.params.rec_dt}></Services>
                 </div>
                 <div style={bottom}>
-                    <LabelBottomNavigation />  
+                    <LabelBottomNavigation userIdFromMain={this.props.match.params.user_id} recDtFromMain={this.props.match.params.rec_dt}/>  
                 </div>
             </div>
         );
@@ -174,8 +183,13 @@ const style = {
 };
 
 const bottom = {
-    margin: '10px auto',
-    width: '95%',
+    margin: '5px auto',
+    width: '100%',
     position: 'fixed',
     bottom: 0,
 };
+
+const spinner = {
+    display: 'inline-block !important',
+    margin: '0 auto',
+}

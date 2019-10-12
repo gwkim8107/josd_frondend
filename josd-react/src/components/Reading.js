@@ -8,7 +8,10 @@ import Col from 'react-bootstrap/Col'
 import ApiService from '../services/ApiService'
 import Slider from 'react-rangeslider'
 import 'react-rangeslider/lib/index.css'
-import MenuBookIcon from '@material-ui/icons/MenuBook';
+// import MenuBookIcon from '@material-ui/icons/MenuBook';
+import CircleLoader from 'react-spinners/CircleLoader';
+
+
 
 
 export default class Reading extends Component{
@@ -127,7 +130,13 @@ export default class Reading extends Component{
                         <Row>
                             <nav aria-label="breadcrumb">
                                 <ol className="breadcrumb">
-                                    <li className="breadcrumb-item active" aria-current="page"><h3 className=""><MenuBookIcon fontSize="large"/> Reading</h3></li>
+                                    <li className="breadcrumb-item active" aria-current="page"><h3 className="">
+                                    <CircleLoader
+                                                css={spinner}
+                                                sizeUnit={"px"}
+                                                size={40}
+                                                color={'#123abc'}
+                                                loading={true}/>  Reading</h3></li>
                                 </ol>
                             </nav>
                             <Form.Group controlId="reading" className='mainform'>
@@ -182,3 +191,8 @@ const style = {
 const appComponent = {
     margin: '10px auto',
 };
+
+const spinner = {
+    display: 'inline-block !important',
+    margin: '0 auto',
+}

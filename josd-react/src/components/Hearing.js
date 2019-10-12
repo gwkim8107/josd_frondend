@@ -9,6 +9,7 @@ import ApiService from '../services/ApiService'
 import Slider from 'react-rangeslider'
 import 'react-rangeslider/lib/index.css'
 import HeadsetIcon from '@material-ui/icons/Headset';
+import ScaleLoader from 'react-spinners/ScaleLoader';
 
 
 export default class Hearing extends Component{
@@ -115,7 +116,14 @@ export default class Hearing extends Component{
                         <Row>
                             <nav aria-label="breadcrumb">
                                 <ol className="breadcrumb">
-                                    <li className="breadcrumb-item active" aria-current="page"><h3 className=""><HeadsetIcon fontSize="large"/> Hearing</h3></li>
+                                    <li className="breadcrumb-item active" aria-current="page"><h3 className="">
+                                        {/* <HeadsetIcon fontSize="large"/>  */}
+                                        <ScaleLoader
+                                            css={spinner}
+                                            sizeUnit={"px"}
+                                            size={40}
+                                            color={'#BF1A2F'}
+                                            loading={true}/>  Hearing</h3></li>
                                 </ol>
                             </nav>
                             <Form.Group controlId="hearing" className='mainform'>
@@ -169,3 +177,8 @@ const style = {
 const appComponent = {
     margin: '10px auto',
 };
+
+const spinner = {
+    display: 'inline-block !important',
+    margin: '0 auto',
+}
