@@ -25,11 +25,12 @@ export default class Main extends Component{
             chant_sd1: 0,
             chant_sd2: 0,
             chant_sd3: 0,
-            message: ""
+            message: "",
+            chanting_point: 0
         }
         this.updateChant = this.updateChant.bind(this);
         // console.log("props.user_id = "+Object.values(this.props.match.params));
-        console.log("props.user_id = "+this.props.match.params.user_id);
+        // console.log("props.user_id = "+this.props.match.params.user_id);
     }
     
     updateChant = (e) => {
@@ -44,6 +45,8 @@ export default class Main extends Component{
             // console.log("done");
             // console.log("res.responseTex= "+res.data);
             this.setState({message: 'Data saved.'});
+            // console.log(" current chant point = "+res.CHANT_POINT);
+            // console.log(" current res_data = "+res.data);
             // window.confirm('Data saved.');
             // console.log("result= "+this.state.message);
             //this.props.history.push('/');
@@ -51,12 +54,33 @@ export default class Main extends Component{
     }
 
     componentDidMount(){
+        window.scrollTo(0, 0);
         let user_chk = window.localStorage.getItem("local_user_id");
         console.log("user_chk = "+user_chk)
         if(user_chk === ""){
             window.confirm('There is not user information. Please login again.');
             this.props.history.push('/');
         }
+        this.initLoading();
+    }
+
+    initLoading = () => {
+        let chant_point = "";
+        let user_id = this.props.match.params.user_id;
+        let rec_dt = this.props.match.params.rec_dt;
+        ApiService.getUserPoint(user_id, rec_dt)
+            .then(response =>{
+                let jsonData = JSON.stringify(response.data)
+                // console.log("jsonData = "+Object.values(jsonData));
+                if(typeof(jsonData) == 'undefined' || jsonData === "[]"){
+                    chant_point = "0"
+                }else{
+                    chant_point = response.data[0].CHANT_POINT;
+                }
+ 
+                this.setState({ chanting_point : chant_point });
+
+            });
     }
     
     handleOnChange = (event) => {
@@ -115,7 +139,7 @@ export default class Main extends Component{
                                                 sizeUnit={"px"}
                                                 size={40}
                                                 color={'#1A1B25'}
-                                                loading={true}/>  Chanting </h3></li>
+                                                loading={true}/>  Chanting : {this.state.chanting_point} </h3></li>
                                     </ol>
                                 </nav>
                                 <Form.Group controlId="chanting" className='mainform'>

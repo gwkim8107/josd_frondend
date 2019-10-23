@@ -19,21 +19,49 @@ export default class Reading extends Component{
     constructor(props, context) {
         super(props, context)
         this.book_title = [
-            'abc',
-            'abcd',
-            'abcde',
-            'bcdef', 
-            'bcdefgh'
+            'Healing Mantras',
+            'Mantra Yoga And Primal Sound',
+            'Power Of Words',
+            'Liberate Your Spiritual Genius Through Chanting', 
+            'A Gnostic Prayer Book',
+            'Mantra Tantra, Yantra',
+            'SHakti Mantras'
         ];
-        console.log("props = "+this.props.userIdFromMain);
+        // console.log("props = "+this.props.userIdFromMain);
         this.state = {
             reading_sd1: 0,
             reading_sd2: 0,
             suggestions: [],
             text: '',
-            message: ""
+            message: "",
+            read_point: 0
         }
         this.updateReading = this.updateReading.bind(this);
+    }
+
+    componentDidMount(){
+        this.initLoading()
+    }
+
+    initLoading = () => {
+        let reading_point = "0";
+        let user_id = this.props.userIdFromMain;
+        let rec_dt = this.props.recDtFromMain;
+        // toPromise()
+        // .then(res => res.json())
+        // .then(A => { return A.showList; });
+        ApiService.getUserPoint(user_id, rec_dt)
+            .then(response =>{
+                // console.log("data = "+response.data)
+                let jsonData = JSON.stringify(response.data)
+                // console.log("jsonData = "+Object.values(jsonData));
+                if(typeof(jsonData) == 'undefined' || jsonData === "[]"){
+                    reading_point = "-20"
+                }else{
+                    reading_point = response.data[0].READING_POINT;
+                }
+                this.setState({ read_point : reading_point });
+            });
     }
 
     updateReading = (e) => {
@@ -45,13 +73,9 @@ export default class Reading extends Component{
         console.log("check data = "+Object.values(redingData));
         ApiService.updateReading(redingData)
         .then(res =>{
-            console.log("done");
-            console.log("res data in reading= "+res.data);
-            console.log("res status in reading = "+res.status);
-            console.log("res statusText in reading = "+res.statusText);
+
             this.setState({message: 'Data saved.'});
-            console.log("result= "+this.state.message);
-            //this.props.history.push('/');
+
         });
     }
     
@@ -136,7 +160,7 @@ export default class Reading extends Component{
                                                 sizeUnit={"px"}
                                                 size={40}
                                                 color={'#123abc'}
-                                                loading={true}/>  Reading</h3></li>
+                                                loading={true}/>  Reading : {this.state.read_point} </h3></li>
                                 </ol>
                             </nav>
                             <Form.Group controlId="reading" className='mainform'>

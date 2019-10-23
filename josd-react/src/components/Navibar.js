@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../logo.png'
 import styled from 'styled-components'
-import { ButtonContainer } from "./Button"
+
 import {Container, Row, Col} from 'react-bootstrap'
 import {getCurrentDate} from '../components/Util'
 import Login from '../components/Login'
+import Image from 'react-bootstrap/Image';
+import Textlogo from '../josd_text.png';
 
 const Label = styled.div`
     font-size: 2.5rem;
@@ -69,7 +71,9 @@ export default class Navibar extends Component {
         return (
             <div>
                 <NavWrpper className="navbar navbar-expand-sm navbar-dark-px-sm-10">
-                    <Label><Link to={`/home/${this.state.user_id}/${this.state.rec_dt}`} className="nav-link">JOSD</Link></Label>
+                    <Label><Link to={`/home/${this.state.user_id}/${this.state.rec_dt}`} className="nav-link">
+                                JOSD
+                            </Link></Label>
                     <Smlabel>  {  this.state.rec_dt}</Smlabel>
                     <ul className="navbar-nav align-items-right">
                         <li className="nav-item ml-5">

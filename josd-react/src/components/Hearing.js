@@ -22,9 +22,37 @@ export default class Hearing extends Component{
             hearing_sd2: 0,
             suggestions: [],
             text: '',
-            message:""
+            message:"",
+            hear_point: 0
         }
         this.updateHearing = this.updateHearing.bind(this);
+    }
+
+    componentDidMount(){
+        this.initLoading();
+    }
+    
+    initLoading = () => {
+        let hearing_point = "0";
+        let user_id = this.props.userIdFromMain;
+        let rec_dt = this.props.recDtFromMain;
+        // toPromise()
+        // .then(res => res.json())
+        // .then(A => { return A.showList; });
+        ApiService.getUserPoint(user_id, rec_dt)
+            .then(response =>{
+                // response.data.forEach(function(data){
+                //     console.log("data = "+data)
+                // })
+
+                if(typeof(response.data) == 'undefined' || response.data === ""){
+                    hearing_point = "-20"
+                }else{
+                    // hearing_point = response.data[0].HEARING_POINT;
+                }
+                console.log("hearing_point = "+hearing_point )
+                this.setState({ hear_point : hearing_point });
+            });
     }
 
     updateHearing = (e) => {
@@ -123,14 +151,14 @@ export default class Hearing extends Component{
                                             sizeUnit={"px"}
                                             size={40}
                                             color={'#BF1A2F'}
-                                            loading={true}/>  Hearing</h3></li>
+                                            loading={true}/>  Hearing : {this.state.hear_point}</h3></li>
                                 </ol>
                             </nav>
                             <Form.Group controlId="hearing" className='mainform'>
                                 <Col xs={12}>
                                     <Form.Label >Lecture Title</Form.Label>
                                     <div className="AutoCompleteText">
-                                        <Form.Control placeholder='type your lecture title' value={text} onChange={this.onTextChanged}/>
+                                        <Form.Control placeholder='Type your Lecture Title' value={text} onChange={this.onTextChanged}/>
                                         {this.renderSuggestions()}
                                     </div>
                                 </Col>

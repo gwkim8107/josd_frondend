@@ -25,10 +25,37 @@ export default class Services extends Component{
             serviceName:"",
             mmServiceName: "",
             message: "",
-            extramessage: ""
+            extramessage: "",
+            sevice_point: "0",
+            mmService_point: "0"
         }
         this.updateService = this.updateService.bind(this);
         this.updateMMservice = this.updateMMservice.bind(this);
+    }
+    componentDidMount(){
+        this.initLoading();
+    }
+
+    initLoading = () => {
+        let sevice_point = "0";
+        let mmService_point = "0";
+        let user_id = this.props.userIdFromMain;
+        let rec_dt = this.props.recDtFromMain;
+        // toPromise()
+        // .then(res => res.json())
+        // .then(A => { return A.showList; });
+        ApiService.getUserPoint(user_id, rec_dt)
+            .then(response =>{
+
+                if(typeof(response.data) == 'undefined' || response.data === ""){
+                    sevice_point = "-20";
+                    mmService_point = "-20";
+                }else{
+                    // sevice_point = response.data[0].SEV_POINT;
+                    // mmService_point = response.data[0].MSEV_POINT;
+                }
+                this.setState({ sevice_point : sevice_point, mmService_point : mmService_point });
+            });
     }
 
     updateService = (e) => {
@@ -135,7 +162,8 @@ export default class Services extends Component{
                                                 sizeUnit={"px"}
                                                 size={12}
                                                 color={'#08A045'}
-                                                loading={true}/>  Service</h3></li>
+                                                // loading={true}/>  Service : {this.state.sevice_point}</h3></li>
+                                                loading={true}/>  Service </h3></li>
                                     </ol>
                                 </nav>
                                 <Form.Group controlId="serviceName" className='mainform'>
@@ -145,7 +173,7 @@ export default class Services extends Component{
                                     </Col>
                                     {/* <hr/> */}
                                     <Col xs={12}> 
-                                        <Form.Label service={appComponent}>Service Totlal Time: {this.servicesdvalue2} hrs {this.servicesdvalue1} mins </Form.Label>
+                                        <Form.Label service={appComponent}>Service Total Time: {this.servicesdvalue2} hrs {this.servicesdvalue1} mins </Form.Label>
                                         <br/>
                                         <Form.Label> Mins </Form.Label>
                                         <Slider ref={sdlide1 => this.servicesdvalue1 = service_sd1} 
@@ -179,7 +207,8 @@ export default class Services extends Component{
                                                 sizeUnit={"px"}
                                                 size={12}
                                                 color={'#EFA00B'}
-                                                loading={true}/>  Much More Service</h3></li>
+                                                // loading={true}/> Much More Service : {this.state.mmService_point}</h3></li>
+                                                loading={true}/> Much More Service </h3></li>
                                     </ol>
                                 </nav>
                                 <Form.Group controlId="mmServiceName" className='mainform'>

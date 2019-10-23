@@ -47,6 +47,11 @@ class ApiService {
         console.log('starts to load chart data');
         return axios.post(USER_API_BASE_URL+'chart?user_id='+user_id);
     }
+
+    getUserPoint(user_id, rec_dt){
+        console.log('starts to load user point');
+        return axios.post(USER_API_BASE_URL+'point?user_id='+user_id+"&rec_dt="+rec_dt);
+    }
 }
 
 export default new ApiService();

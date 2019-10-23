@@ -21,7 +21,6 @@ const useStyles = makeStyles({
 function LabelBottomNavigation() {
     const classes = useStyles();
     const [value, setValue] = React.useState('chanting');
-    // window.scrollTo(0, 0);
 
 // Scroll to somewhere in the same screen
 function handleChange(event, newValue) {
@@ -40,12 +39,12 @@ function handleChange(event, newValue) {
             window.scrollTo(0, 1385);
         }else if(newValue === 'chart'){
             let user_id = window.localStorage.getItem("local_user_id");
-            // this.history.push(`/chart/test5/`);
-            window.location.replace('/chart/'+window.localStorage.getItem("local_user_id"));
+            this.props.history.push(`/chart/test5/`);
+            // window.location.href = '/chart/'+window.localStorage.getItem("local_user_id");
             // <Link to={`/testimonial/${post.id}`} className="red">
             //     <span onClick={this.saveData(post.title)}>More</span>
             // </Link>
-            // <Link to={`/chart/${user_id}`}></Link>
+            // return <Link to={`/chart/${user_id}`}></Link>
         }
         
 }

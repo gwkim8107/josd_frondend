@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Linechart from 'react-apexcharts'
 import ApiService from '../services/ApiService';
+import '../css/Chart.css'
 
 const seriesArr = [];
 const readingArr = [];
@@ -61,25 +62,29 @@ export default class ChartTest extends Component {
                 }
             ],
         }
+        // this.updateService = this.updateService.bind(this);
+        this.chantData = this.chantData.bind(this)
     }
 
     mmServiceData = () => {
-        let x = new Date("2019-10-10").getTime();
-        ApiService.retriveChartService('test5')
+        let rec_dt = window.localStorage.getItem("local_rec_dt");
+        let user_id = this.props.match.params.user_id;
+        let x = new Date(rec_dt).getTime();
+        ApiService.retriveChartService(user_id)
             .then( res => {
-            res.data.forEach( el => {
-                let values = [];
-                let i = 0;
+                res.data.forEach( el => {
+                    let values = [];
+                    let i = 0;
 
-                if(typeof el.MSEV_POINT !== 'undefined'  ){
-                    values.push(el.MSEV_POINT)
-                }else{
-                    el.HEARING_POINT = -20;
-                    values.push(el.SEV_POINT)
-                }
+                    if(typeof el.MSEV_POINT !== 'undefined'  ){
+                        values.push(el.MSEV_POINT)
+                    }else{
+                        el.HEARING_POINT = -20;
+                        values.push(el.SEV_POINT)
+                    }
                 
-                mmServiceArr.push([x, values[i]]);
-                x -= 86400000;
+                    mmServiceArr.push([x, values[i]]);
+                    x -= 86400000;
             })
         })
 
@@ -87,22 +92,24 @@ export default class ChartTest extends Component {
     }
 
     serviceData = () => {
-        let x = new Date("2019-10-10").getTime();
-        ApiService.retriveChartService('test5')
+        let rec_dt = window.localStorage.getItem("local_rec_dt");
+        let x = new Date(rec_dt).getTime();
+        let user_id = this.props.match.params.user_id;
+        ApiService.retriveChartService(user_id)
             .then( res => {
-            res.data.forEach( el => {
-                let values = [];
-                let i = 0;
+                res.data.forEach( el => {
+                    let values = [];
+                    let i = 0;
 
-                if(typeof el.SEV_POINT !== 'undefined'  ){
-                    values.push(el.SEV_POINT)
-                }else{
-                    el.HEARING_POINT = -20;
-                    values.push(el.SEV_POINT)
-                }
-                
-                serviceArr.push([x, values[i]]);
-                x -= 86400000;
+                    if(typeof el.SEV_POINT !== 'undefined'  ){
+                        values.push(el.SEV_POINT)
+                    }else{
+                        el.HEARING_POINT = -20;
+                        values.push(el.SEV_POINT)
+                    }
+                    
+                    serviceArr.push([x, values[i]]);
+                    x -= 86400000;
             })
         })
 
@@ -110,46 +117,50 @@ export default class ChartTest extends Component {
     }
 
     hearingData = () => {
-        let x = new Date("2019-10-10").getTime();
-        ApiService.retriveChartService('test5')
+        let rec_dt = window.localStorage.getItem("local_rec_dt");
+        let user_id = this.props.match.params.user_id;
+        let x = new Date(rec_dt).getTime();
+        ApiService.retriveChartService(user_id)
             .then( res => {
-            res.data.forEach( el => {
-                let values = [];
-                let i = 0;
+                res.data.forEach( el => {
+                    let values = [];
+                    let i = 0;
 
-                if(typeof el.HEARING_POINT !== 'undefined'  ){
-                    values.push(el.HEARING_POINT)
-                }else{
-                    el.HEARING_POINT = -20;
-                    values.push(el.HEARING_POINT)
-                }
-                
-                hearingArr.push([x, values[i]]);
-                x -= 86400000;
+                    if(typeof el.HEARING_POINT !== 'undefined'  ){
+                        values.push(el.HEARING_POINT)
+                    }else{
+                        el.HEARING_POINT = -20;
+                        values.push(el.HEARING_POINT)
+                    }
+                    
+                    hearingArr.push([x, values[i]]);
+                    x -= 86400000;
+                })
             })
-        })
 
         return hearingArr;
     }
 
     readingData = () =>{
-        let x = new Date("2019-10-10").getTime();
-        ApiService.retriveChartService('test5')
+        let rec_dt = window.localStorage.getItem("local_rec_dt");
+        let user_id = this.props.match.params.user_id;
+        let x = new Date(rec_dt).getTime();
+        ApiService.retriveChartService(user_id)
             .then( res => {
-            res.data.forEach( el => {
-                let values = [];
-                let i = 0;
+                res.data.forEach( el => {
+                    let values = [];
+                    let i = 0;
 
-                if(typeof el.READING_POINT !== 'undefined'  ){
-                    values.push(el.READING_POINT)
-                }else{
-                    el.READING_POINT = -20;
-                    values.push(el.READING_POINT)
-                }
-                
-                readingArr.push([x, values[i]]);
-                x -= 86400000;
-            })
+                    if(typeof el.READING_POINT !== 'undefined'  ){
+                        values.push(el.READING_POINT)
+                    }else{
+                        el.READING_POINT = -20;
+                        values.push(el.READING_POINT)
+                    }
+                    
+                    readingArr.push([x, values[i]]);
+                    x -= 86400000;
+                })
         })
         // console.log("seriesArr data = "+ seriesArr[0])
         return readingArr;
@@ -157,8 +168,10 @@ export default class ChartTest extends Component {
 
 
     chantData = () => {
-        let x = new Date("2019-10-10").getTime();
-        ApiService.retriveChartService('test5')
+        let rec_dt = window.localStorage.getItem("local_rec_dt");
+        let user_id = this.props.match.params.user_id;
+        let x = new Date(rec_dt).getTime();
+        ApiService.retriveChartService(user_id)
             .then( res => {
             res.data.forEach( el => {
                 let values = [];
@@ -171,7 +184,7 @@ export default class ChartTest extends Component {
                     values.push(el.CHANT_POINT)
                 }
                 
-                console.log("x = "+x)
+                // console.log("x = "+x)
                 seriesArr.push([x, values[i]]);
                 x -= 86400000;
             })
@@ -179,12 +192,15 @@ export default class ChartTest extends Component {
         // console.log("seriesArr data = "+ seriesArr[0])
         return seriesArr;
     }
+    componentDidMount(){
+
+    }
 
 
     render() {
         // console.log("this state series = "+this.state.series);
         return (
-            <div className="container">
+            <div className="container rotate" >
                 <Linechart
                     options={this.state.options}
                     series={this.state.series}

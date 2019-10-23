@@ -24,7 +24,8 @@ export default class Login extends Component {
             password: "",
             rec_dt: "",
             google_web_key : "171020464998-tvhaqrpfrmkqj3rfb3eqi6vqf126h9rp.apps.googleusercontent.com",
-            fb_web_key : "446185069583127"
+            fb_web_key : "446185069583127",
+            loading: false
         };
         this.chkUser = this.chkUser.bind(this);
     }
@@ -34,6 +35,7 @@ export default class Login extends Component {
 
     // login
     chkUser = (e) => {
+        this.setState({ loading: true });
         e.preventDefault();
         let user_id = this.state.username;
         let user_pw = this.state.password;
@@ -48,20 +50,21 @@ export default class Login extends Component {
 
         ApiService.chkUser(user_id, user_pw)
             .then((res) =>{
-                // console.log("result= "+res.data);
-                if (res.data === "Success"){
-                    window.localStorage.setItem("local_user_id",user_id);
-                    window.localStorage.setItem("local_rec_dt",rec_dt);
-                    this.props.history.push(`/home/${user_id}/${rec_dt}`);
-                    // return <Link to={`/home`}/>
-
-                }else{
-                    // console.log(res.data);
+                setTimeout(
+                    function() {
+                        if (res.data === "Success"){
+                            this.setState({ loading: false });
+                            window.localStorage.setItem("local_user_id",user_id);
+                            window.localStorage.setItem("local_rec_dt",rec_dt);
+                            this.props.history.push(`/home/${user_id}/${rec_dt}`);
+                        }else{
+                             // console.log(res.data);
                     window.confirm('There is no username. Please try again.');
-                }
-
+                        }
+                    }
+                    .bind(this), 3000
+                );
             });
-
     }
 
 
@@ -100,17 +103,32 @@ export default class Login extends Component {
         // console.log("username= "+ res.w3.U3)
         window.localStorage.setItem("local_user_id",res.w3.U3);
         window.localStorage.setItem("local_rec_dt",rec_dt);
-
-        this.props.history.push(`/home/${res.w3.U3}/${rec_dt}`);
-
+        // For the first login, the user needs to store in the database
+        // Check user 
+        ApiService.chkUser(res.w3.U3, res.w3.Eea)
+        .then((res) =>{
+            if (res.data === "Success"){
+                let user = {user_id: res.w3.U3, user_pw: res.w3.Eea,
+                    f_name: res.w3.ofa, l_name: res.w3.wea, user_email: res.w3.U3,
+                    user_contNum: ""};
+                ApiService.addUser(user)
+                .then(res =>{
+                    console.log("done");
+                    this.setState({message: 'User added successfully.'});
+                    // window.confirm('User added successfully.');
+                });
+                this.props.history.push(`/home/${res.w3.U3}/${rec_dt}`);
+            }else{
+                // console.log(res.data);
+                window.confirm('There is no username. Please try again.');
+            }
+        });
     }
 
-    //Login Fail
+    //Google Login Fail
     responseFail = (err) => {
         console.log(err);
-        console.error(err)
-
-        
+        console.error(err)   
     }
 
     // Facebook Login
@@ -124,13 +142,14 @@ export default class Login extends Component {
         window.localStorage.setItem("local_rec_dt",rec_dt);
         this.props.history.push(`/home/${response.userID}/${rec_dt}`);
     }
+
     componentDidMount(){
         // this.responseGoogle();
     }
     
 
     render() {
-        // const { updateAccount } = this.context;
+        const { loading } = this.state;
         return(
             
             <div className="" style={style}>
@@ -160,7 +179,16 @@ export default class Login extends Component {
                             </Col>
                         </Row>
                     </Container>
-                    <Button size='lg' className='btn1 Login' block type="submit" onClick={this.chkUser}>Login</Button>
+                    <Button size='lg' className='btn1 Login' block type="submit" onClick={this.chkUser} disabled={this.state.loading}>
+                        {loading && (
+                            <i
+                            className="fa fa-refresh fa-spin"
+                            style={{ marginRight: "5px" }}
+                            />
+                        )}
+                        {loading && <span>Loading</span>}
+                        {!loading && <span>Login{loading}</span>}
+                    </Button>
                     {/* <Button size='lg' className='btn1 Login'  block disabled={!this.validateForm()} type="submit" onClick={updateAccount}>test</Button> */}
                 </Form>
                 <div className='container'>
